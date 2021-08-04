@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { FcBarChart, FcGenealogy, FcGraduationCap, FcKindle, FcMultipleDevices, FcTodoList, FcWorkflow } from 'react-icons/fc';
 import { GiNinjaHeroicStance } from 'react-icons/gi';
 import { ImCool, ImEye, ImHappy, ImSearch, ImStarEmpty } from 'react-icons/im';
-import './Introduction.scss';
 import AppLayout from 'layouts/AppLayout';
+import './Introduction.scss';
 
 const Introduction = () => {
     return (
@@ -72,10 +71,10 @@ const Introduction = () => {
                                 <h2>¿Qué somos?</h2>
                             </div>
                             <p>
-                                <span className = "special">AlgoThinker</span> es un proyecto en el cual se ha consultado 
-                                múltiples metodologías y bibliografías relacionadas al Aprendizaje, las Estructuras de Datos y Algoritmos
-                                para la elaboración de una aplicación web progresiva que permita una enseñanza más cómoda para los
-                                estudiantes.
+                                <span className = "special">AlgoThinker</span> es una aplicación diseñada para el proceso de
+                                enseñanza / aprendizaje de las Estructuras de Datos y Algoritmos más utilizados. La misma está
+                                dirigida a estudiantes de Informática y Computación, así como a personas interesadas en aprender
+                                la lógica utilizada para el diseño y elaboración de un programa computarizado.
                             </p>
                         </div>
 
@@ -108,7 +107,7 @@ const Introduction = () => {
                                     <li>
                                         <div> 
                                             <GiNinjaHeroicStance className = "list-icons"/>
-                                            <p>Convertirte un ninja en la codificación.</p>
+                                            <p>Desarrollar tus habilidades para ser un ninja en la programación.</p>
                                         </div>
                                     </li>
                                 </ul>
@@ -135,7 +134,7 @@ const Introduction = () => {
                             </div>
                             <div className = "introduction_div_img">
                                 <img src = "./assets/img/ninja.jpg"  className = "img" alt = "Ninja"/>
-                                <p>Apenas se comienza el camino para convertirse en un ninja de la codificación.</p>
+                                <p>Apenas se comienza el camino para convertirse en un ninja de la programación.</p>
                             </div>
                         </div>
 

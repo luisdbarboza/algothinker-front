@@ -25,7 +25,7 @@ const Visualization = () => {
     data: {},
     multiple: false,
   });
-  const [selectedVisualization, setSelectedVisualization] = useState(0);
+  const [selectedVisualization, setSelectedVisualization] = useState(0);//para temas con multiples visualizaciones
 
   useEffect(async () => {
     const response = await fetch(`${SERVER_URL}/topics/${topic}/visualizacion`);

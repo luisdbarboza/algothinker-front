@@ -165,8 +165,8 @@ const Button = styled.button`
   padding: 0.5rem 1rem;
 
   @media (max-width: 769px) {
-    font-size: .75rem;
-    padding: .45rem .75rem;
+    font-size: 0.75rem;
+    padding: 0.45rem 0.75rem;
   }
 
   &:hover {
@@ -180,7 +180,7 @@ const Button = styled.button`
 `;
 
 const H5 = styled.h5`
-  color: #FFFFFF;
+  color: #ffffff;
   font-size: 1rem;
   font-weight: 600;
   margin: 0rem 1rem;
@@ -232,15 +232,17 @@ const Sidebar = () => {
 
         <DivDerecho>
           <IconContext.Provider value={{ className: 'icons' }}>
-            <FiHelpCircle />
+            <Link to='/contact'>
+              <FiHelpCircle />
+            </Link>
           </IconContext.Provider>
-          <Link style = {{textDecoration: "none"}} to = "/userpage">
+          <Link style={{ textDecoration: 'none' }} to='/userpage'>
             <H5>Hola {user.fullname}</H5>
           </Link>
           <div>
             <Button
               onClick={() => {
-                dispatchUser({type: 'LOG_OUT'});
+                dispatchUser({ type: 'LOG_OUT' });
                 history.push('/');
               }}
             >

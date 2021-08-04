@@ -20,8 +20,14 @@ class LinkedList {
   append(value) {
     const newNode = new Node(value);
 
-    this.tail.next = newNode;
-    this.tail = newNode;
+    if(this.length === 0) {
+      this.head = newNode;
+      this.tail = this.head;
+    } else  {
+      this.tail.next = newNode;
+      this.tail = newNode;  
+    }
+    
     this.length++;
   }
 

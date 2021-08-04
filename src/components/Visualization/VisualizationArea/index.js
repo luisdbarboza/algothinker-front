@@ -6,6 +6,7 @@ import ArrayControls from 'components/Visualization/ArrayControls';
 import StackControls from 'components/Visualization/StackControls';
 import QueueControls from 'components/Visualization/QueueControls';
 import LinkedListControls from 'components/Visualization/LinkedListControls';
+import FullArrayVisualization from 'components/Visualization/FullArrayVisualization';
 import { VisualizationContext } from 'context/VisualizationContext';
 import styled from 'styled-components';
 
@@ -23,13 +24,19 @@ const Wrapper = styled.div`
 `;
 
 const VisualizationArea = React.memo(
-  ({ visualizationData, selectedTab, selectedVisualization, setSelectedVisualization }) => {
+  ({
+    visualizationData,
+    selectedTab,
+    selectedVisualization,
+    setSelectedVisualization,
+  }) => {
     const { dispatchVisualization } = useContext(VisualizationContext);
     const [inputData, setInputData] = useState(null);
     const [specialData, setSpecialData] = useState(null);
     const [initialize, setInitialize] = useState(true);
     const [showControls, setShowControls] = useState(false);
     let isArray = false;
+    let isFullArray = false;
     let isStack = false;
     let isQueue = false;
     let isLinkedList = false;
@@ -79,6 +86,9 @@ const VisualizationArea = React.memo(
           break;
         case 'linkedList':
           isLinkedList = true;
+        case 'array':
+          isFullArray = true;
+          break;
       }
     }
 
@@ -124,6 +134,14 @@ const VisualizationArea = React.memo(
         )}
         {isLinkedList && (
           <LinkedListControls
+            setInputData={setInputData}
+            initialSpecial={visualizationData.special}
+            setInitialize={setInitialize}
+            setSpecialData={setSpecialData}
+          />
+        )}
+        {isFullArray && (
+          <FullArrayVisualization
             setInputData={setInputData}
             initialSpecial={visualizationData.special}
             setInitialize={setInitialize}

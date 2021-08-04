@@ -31,9 +31,9 @@ const visualizations = {
         markers.pop();
         markers.push({
           startRow: 9,
-          startCol: 24,
+          startCol: 48,
           endRow: 26,
-          endCol: 3,
+          endCol: 8,
           className: 'codeEditor',
           type: 'background',
         });
@@ -41,9 +41,9 @@ const visualizations = {
         markers.pop();
         markers.push({
           startRow: 6,
-          startCol: 22,
+          startCol: 40,
           endRow: 29,
-          endCol: 2,
+          endCol: 4,
           className: 'codeEditor',
           type: 'background',
         });
@@ -246,9 +246,9 @@ const visualizations = {
           markers.pop();
           markers.push({
             startRow: 6,
-            startCol: 30,
+            startCol: 54,
             endRow: 13,
-            endCol: 4,
+            endCol: 8,
             className: 'codeEditor',
             type: 'background',
           });
@@ -276,9 +276,9 @@ const visualizations = {
         markers.pop();
         markers.push({
           startRow: 2,
-          startCol: 24,
+          startCol: 40,
           endRow: 19,
-          endCol: 2,
+          endCol: 4,
           className: 'codeEditor',
           type: 'background',
         });
@@ -492,18 +492,18 @@ const visualizations = {
         endOfIteration = orderedItemIndex === iteration;
         markers.push({
           startRow: 3,
-          startCol: 19,
+          startCol: 40,
           endRow: 8,
-          endCol: 3,
+          endCol: 8,
           className: 'codeEditor',
           type: 'background',
         });
       } else {
         markers.push({
           startRow: 2,
-          startCol: 24,
+          startCol: 45,
           endRow: 9,
-          endCol: 2,
+          endCol: 4,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1104,8 +1104,6 @@ const visualizations = {
       markers.pop();
 
       if (arr.length === 1 && arr[0] !== stepData.target) {
-        alert('NOT FUND');
-
         markers.push({
           startRow: 5,
           startCol: 0,
@@ -1249,6 +1247,279 @@ const visualizations = {
     },
     transition: (svg, mode, data, special) => {},
     code: '/algorithms/binarySearch.js',
+  },
+  array: {
+    algorithm: (
+      dataStructure,
+      stepData,
+      externalInputs,
+      arr = dataStructure
+    ) => {
+      const markers = [];
+      let value = Number(externalInputs.value);
+      let index =
+        Number(externalInputs.index) <= 0
+          ? 0
+          : Number(externalInputs.index) > arr.length ||
+            Number(externalInputs.index) === arr.length - 1
+          ? arr.length - 1
+          : Number(externalInputs.index);
+
+      if (externalInputs.action === 'push') {
+        arr.push(value);
+
+        markers.push({
+          startRow: 11,
+          startCol: 20,
+          endRow: 17,
+          endCol: 2,
+          className: 'codeEditor',
+          type: 'background',
+        });
+      } else if (externalInputs.action === 'pop') {
+        arr.pop();
+
+        markers.push({
+          startRow: 19,
+          startCol: 16,
+          endRow: 24,
+          endCol: 2,
+          className: 'codeEditor',
+          type: 'background',
+        });
+      } else if (externalInputs.action === 'delete') {
+        arr.delete(index);
+
+        markers.push({
+          startRow: 26,
+          startCol: 20,
+          endRow: 29,
+          endCol: 2,
+          className: 'codeEditor',
+          type: 'background',
+        });
+
+        markers.push({
+          startRow: 27,
+          startCol: 0,
+          className: 'codeEditor-nested-call',
+          type: 'background',
+        });
+
+        markers.push({
+          startRow: 35,
+          startCol: 30,
+          endRow: 42,
+          endCol: 2,
+          className: 'codeEditor',
+          type: 'background',
+        });
+
+        stepData.deletedIndex = index;
+      } else if (externalInputs.action === 'insert') {
+        markers.push({
+          startRow: 44,
+          startCol: 30,
+          endRow: 56,
+          endCol: 2,
+          className: 'codeEditor',
+          type: 'background',
+        });
+
+        if (index >= arr.length || arr.length === 0) {
+          markers.push({
+            startRow: 46,
+            startCol: 0,
+            className: 'codeEditor-nested-call',
+            type: 'background',
+          });
+        } else {
+          markers.push({
+            startRow: 47,
+            startCol: 20,
+            endRow: 55,
+            endCol: 4,
+            className: 'codeEditor-nested-call',
+            type: 'background',
+          });
+        }
+
+        arr.insert(index, value);
+
+        stepData.insertedIndex = index;
+      }
+
+      return {
+        transformedDataStructure: arr,
+        special: {
+          ...stepData,
+          action: externalInputs.action,
+          markers,
+        },
+      };
+    },
+    keyframe: (svg, data, special) => {
+      for (let i = data.length; i < data.capacity; i++) {
+        svg
+          .append('path')
+          .attr('d', `M${(i + 1) * 50} 200 h40 v40 h-40 z l40 40`)
+          .attr('stroke', 'black')
+          .attr('fill', 'none');
+      }
+
+      for (let i = 0; i < data.length; i++) {
+        svg
+          .append('rect')
+          .attr('x', (i + 1) * 50)
+          .attr('y', 200)
+          .attr('class', `array-item item-box-${i}`);
+        svg
+          .append('text')
+          .attr('x', (i + 1) * 50)
+          .attr('y', 200)
+          .call(centerTextInsideContainer, 40)
+          .attr('fill', 'black')
+          .text(data.data[i])
+          .attr('class', `item-value-${i}`);
+
+        svg
+          .append('text')
+          .attr('x', (i + 1) * 50)
+          .attr('y', 250)
+          .call(centerTextInsideContainer, 40)
+          .attr('fill', 'black')
+          .text(i)
+          .attr('class', `item-index-${i}`);
+      }
+    },
+    transition: (svg, mode, data, special) => {
+      if (special.action === 'delete') {
+        let arrayLength = Number(data.length);
+        let deletedIndex = Number(special.deletedIndex);
+
+        if (arrayLength > deletedIndex) {
+          let i = arrayLength;
+
+          for (i; i > deletedIndex; i--) {
+            svg
+              .select(`.item-box-${i}`)
+              .transition()
+              .duration(500)
+              .attr('x', i * 50);
+
+            svg
+              .select(`.item-value-${i}`)
+              .transition()
+              .duration(500)
+              .attr('x', i * 50);
+          }
+
+          svg
+            .select(`.item-box-${i}`)
+            .transition()
+            .duration(500)
+            .attr('y', 800);
+
+          svg
+            .select(`.item-value-${i}`)
+            .transition()
+            .duration(500)
+            .attr('y', 800);
+        }
+      } else if (special.action === 'push') {
+        svg
+          .append('rect')
+          .attr('x', 0)
+          .attr('y', 50)
+          .attr('class', `array-item`)
+          .transition()
+          .duration(200)
+          .attr('x', data.length * 50)
+          .transition()
+          .duration(300)
+          .attr('y', 200);
+
+        svg
+          .append('text')
+          .attr('x', 0)
+          .attr('y', 50)
+          .call(centerTextInsideContainer, 40)
+          .attr('fill', 'black')
+          .text(data.data[data.length - 1])
+          .transition()
+          .duration(200)
+          .attr('x', data.length * 50)
+          .transition()
+          .duration(300)
+          .attr('y', 200);
+      } else if (special.action === 'pop') {
+        svg
+          .select(`.item-box-${data.length}`)
+          .transition()
+          .duration(500)
+          .attr('y', 800);
+
+        svg
+          .select(`.item-value-${data.length}`)
+          .transition()
+          .duration(500)
+          .attr('y', 800);
+      } else if (special.action === 'insert') {
+        let arrayLength = Number(data.length - 1);
+        let insertedIndex =
+          Number(special.insertedIndex) <= 0
+            ? 0
+            : Number(special.insertedIndex) > arrayLength ||
+              Number(special.insertedIndex) === arrayLength - 1
+            ? arrayLength - 1
+            : Number(special.insertedIndex);
+
+        if (arrayLength > insertedIndex) {
+          let i = arrayLength;
+
+          for (i; i > insertedIndex; i--) {
+            svg
+              .select(`.item-box-${i - 1}`)
+              .transition()
+              .duration(500)
+              .attr('x', (i + 1) * 50);
+
+            svg
+              .select(`.item-value-${i - 1}`)
+              .transition()
+              .duration(500)
+              .attr('x', (i + 1) * 50);
+          }
+
+          svg
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', 50)
+            .attr('class', `array-item`)
+            .transition()
+            .duration(200)
+            .attr('x', (insertedIndex + 1) * 50)
+            .transition()
+            .duration(300)
+            .attr('y', 200);
+
+          svg
+            .append('text')
+            .attr('x', 0)
+            .attr('y', 50)
+            .call(centerTextInsideContainer, 40)
+            .attr('fill', 'black')
+            .text(data.data[insertedIndex])
+            .transition()
+            .duration(200)
+            .attr('x', (insertedIndex + 1) * 50)
+            .transition()
+            .duration(300)
+            .attr('y', 200);
+        }
+      }
+    },
+    code: '/dataStructures/array.js',
   },
   stack: {
     algorithm: (
@@ -1684,6 +1955,8 @@ const visualizations = {
       } else {
         let index = Number(externalInputs.index);
 
+        stepData.removedIndex = Number(externalInputs.index);
+        stepData.removedValue = dataStructure.traverseToIndex(index);
         linkedList.remove(index);
       }
 
@@ -1714,7 +1987,7 @@ const visualizations = {
           .attr('cy', nodeY)
           .attr('stroke-width', '2px')
           .attr('stroke', 'black')
-          .attr('id', `node-circle-${counter - 1}`);
+          .attr('class', `node-circle-${counter - 1}`);
 
         svg
           .append('text')
@@ -1726,7 +1999,28 @@ const visualizations = {
           .attr('text-anchor', 'middle')
           .attr('alignment-baseline', 'central')
           .text(currentNode.value)
-          .attr('id', `node-text-${counter - 1}`);
+          .attr('class', `node-text-${counter - 1}`);
+
+        if (currentNode === data.head || currentNode === data.tail) {
+          svg
+            .append('text')
+            .attr('color', 'black')
+            .attr('font-family', 'Arial')
+            .attr('fill', 'black')
+            .attr('x', 300)
+            .attr('y', nodeY)
+            .attr('text-anchor', 'middle')
+            .attr('alignment-baseline', 'central')
+            .text(() => {
+              let nodeText;
+              if (currentNode === data.head && currentNode === data.tail)
+                nodeText = 'Cabeza / Cola';
+              else if (currentNode === data.head) nodeText = 'Cabeza';
+              else nodeText = 'Cola';
+
+              return nodeText;
+            });
+        }
 
         svg
           .append('path')
@@ -1737,13 +2031,115 @@ const visualizations = {
           })
           .attr('stroke', 'black')
           .attr('fill', 'black')
-          .attr('id', `node-pointer-${counter - 1}`);
+          .attr('class', `node-pointer-${counter - 1}`);
 
         currentNode = currentNode.next;
         counter++;
       }
     },
-    transition: (svg, mode, data, special) => {},
+    transition: (svg, mode, data, special) => {
+      if (mode === 'forward' && special.action === 'insert') {
+        let currentNode = data.head;
+        let counter = 1;
+
+        while (currentNode) {
+          let nodeY =
+            counter === 1
+              ? 70 * counter
+              : 70 * counter + 20 * (counter - 1) + 7 * (counter - 1);
+
+          if (counter - 1 > special.insertIndex) {
+            svg
+              .select(`.node-circle-${counter - 2}`)
+              .transition()
+              .duration(500)
+              .attr('cy', 70 * counter + 20 * counter + 7 * counter);
+
+            svg
+              .select(`.node-text-${counter - 2}`)
+              .transition()
+              .duration(500)
+              .attr('y', 70 * counter + 20 * counter + 7 * counter);
+
+            svg
+              .select(`.node-pointer-${counter - 2}`)
+              .transition()
+              .duration(500)
+              .attr(
+                'd',
+                `M200 ${
+                  70 * counter + 20 * counter + 7 * counter + 20
+                } v50 h-5 l5 5 l5 -5 h-5`
+              );
+          }
+
+          if (counter - 1 === special.insertIndex) {
+            svg
+              .append('circle')
+              .attr('fill', 'skyblue')
+              .attr('r', 0)
+              .attr('cx', 200)
+              .attr('cy', nodeY)
+              .attr('stroke-width', '2px')
+              .attr('stroke', 'black')
+              .transition()
+              .duration(500)
+              .attr('r', 20);
+
+            svg
+              .append('text')
+              .attr('color', 'black')
+              .attr('font-family', 'Arial')
+              .attr('fill', 'black')
+              .attr('x', 200)
+              .attr('y', nodeY)
+              .attr('font-size', '0px')
+              .attr('text-anchor', 'middle')
+              .attr('alignment-baseline', 'central')
+              .text(currentNode.value)
+              .transition()
+              .duration(500)
+              .attr('font-size', '16px');
+          }
+
+          currentNode = currentNode.next;
+          counter++;
+        }
+      } else if (mode === 'forward' && special.action === 'remove') {
+        let currentNode = data.head;
+        let counter = 1;
+
+        while (currentNode) {
+          let nodeY =
+            counter === 1
+              ? 70 * counter
+              : 70 * counter + 20 * (counter - 1) + 7 * (counter - 1);
+
+          if (counter - 1 === special.removedIndex) {
+            svg
+              .select(`.node-circle-${counter - 1}`)
+              .transition()
+              .duration(500)
+              .attr('r', 0);
+
+            svg
+              .select(`.node-text-${counter - 1}`)
+              .transition()
+              .duration(500)
+              .attr('font-size', '0px');
+
+            svg
+              .select(`.node-pointer-${counter - 1}`)
+              .transition()
+              .duration(500)
+              .attr('opacity', 0);
+          }
+
+          currentNode = currentNode.next;
+          counter++;
+        }
+      }
+    },
     code: '/dataStructures/linkedList.js',
   },
   binarySearchTree: {

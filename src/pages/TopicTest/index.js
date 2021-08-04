@@ -264,6 +264,7 @@ const TopicTest = () => {
         ok: data.ok,
         tests: data.results,
       });
+      setErrors(null);
     } catch (error) {
       setErrors(error.message);
     }
@@ -301,7 +302,7 @@ const TopicTest = () => {
                     }}
                     options={challengesSelect}
                     challengesSolvedIds={challengesSolvedIds}
-                    setSelectedChallenge={setSelectedChallenge}
+                    setSelectedListOption={setSelectedChallenge}
                   />
                 )}
               </TitleWrapper>

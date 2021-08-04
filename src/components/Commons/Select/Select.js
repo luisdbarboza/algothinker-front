@@ -7,7 +7,7 @@ import { AiOutlineCheck } from 'react-icons/ai';
 const Select = ({
   initialValue,
   options,
-  setSelectedChallenge,
+  setSelectedListOption,
   challengesSolvedIds,
   showCheckSymbol = true
 }) => {
@@ -53,11 +53,11 @@ const Select = ({
                         value: option.value,
                       };
                     });
-                    setSelectedChallenge(index);
+                    setSelectedListOption(index);
                   }}
                 >
                   <span>{option.label}</span>
-                  {challengesSolvedIds[option.value] && showCheckSymbol ? (
+                  {challengesSolvedIds && challengesSolvedIds[option.value] && showCheckSymbol ? (
                     <span style={{ color: 'lime', fontSize: '1.2rem' }}>
                       <AiOutlineCheck />
                     </span>

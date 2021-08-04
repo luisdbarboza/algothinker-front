@@ -50,10 +50,10 @@ const CardsCourses = ({ course }) => {
     case 'Colas':
     case 'Algoritmos de ordenamiento':
     case 'Algoritmos de búsqueda':
+    case 'Arreglos':
       hasVisualization = true;
       hasChallenges = true;
       break;
-    case 'Arreglos':
     case 'Grafos':
     case 'Tablas hash':
     case 'Árboles':

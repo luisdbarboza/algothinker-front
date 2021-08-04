@@ -1,3 +1,62 @@
+class MyArray {
+  constructor() {
+    this.length = 0;
+    this.data = {};
+    this.capacity = 5;
+  }
+
+  get(index) {
+    return this.data[index];
+  }
+
+  push(value) {
+    this.shouldDoubleCapacity();
+
+    this.data[this.length] = value;
+    this.length++;
+    return this.length;
+  }
+
+  pop() {
+    let deletedItem = this.data[this.length - 1];
+    delete this.data[this.length - 1];
+    this.length--;
+    return deletedItem;
+  }
+
+  delete(index) {
+    this.shiftItems(index);
+    return this.length;
+  }
+
+  shouldDoubleCapacity() {
+    if (this.length === this.capacity) this.capacity = this.capacity * 2;
+  }
+
+  shiftItems(index) {
+    for (let i = this.length - 1; i > index; i--) {
+      this.data[i - 1] = this.data[i];
+    }
+
+    delete this.data[this.length - 1];
+    this.length--;
+  }
+
+  insert(index, value) {
+    if (index > this.length || this.length === 0) {
+      this.push(value);
+    } else {
+      let i = this.length - 1;
+
+      for (i; i >= index; i--) {
+        this.data[i + 1] = this.data[i];
+      }
+      this.data[index] = value;
+      this.length++;
+    }
+  }
+}
+
 class Stack {
   constructor() {
     this.data = [];
@@ -30,12 +89,11 @@ class Node {
 }
 
 class LinkedList {
-
   constructor(value) {
     this.head = {
       value,
-      next: null
-    }
+      next: null,
+    };
 
     this.tail = this.head;
     this.length = 1;
@@ -44,8 +102,13 @@ class LinkedList {
   append(value) {
     const newNode = new Node(value);
 
-    this.tail.next = newNode;
-    this.tail = newNode;
+    if (this.length === 0) {
+      this.head = newNode;
+      this.tail = this.head;
+    } else {
+      this.tail.next = newNode;
+      this.tail = newNode;
+    }
     this.length++;
   }
 
@@ -101,11 +164,11 @@ class LinkedList {
       leader.next = unwantedNode.next;
 
       this.length--;
-    } else if(index === 0) {
+    } else if (index === 0) {
       this.head = this.head.next;
       this.length--;
     } else {
-      console.error("INDICE INVALIDO");
+      console.error('INDICE INVALIDO');
     }
   }
 
@@ -121,7 +184,6 @@ class LinkedList {
 
     return currentNode;
   }
-
 }
 
 class Queue {
@@ -328,4 +390,4 @@ class BinarySearchTree {
   }
 }
 
-export { Stack, Queue, LinkedList, BinarySearchTree };
+export { MyArray, Stack, Queue, LinkedList, BinarySearchTree };

@@ -105,8 +105,7 @@ const ArrayControls = ({
             label: visualizationData[selectedVisualization].name,
           }}
           options={visualizationsSelect}
-          challengesSolvedIds={visualizationsId}
-          setSelectedChallenge={setSelectedVisualization}
+          setSelectedListOption={setSelectedVisualization}
           showCheckSymbol={false}
         />
       </SelectWrapper>
@@ -119,11 +118,6 @@ const ArrayControls = ({
           if (type === 'binarySearch') arrayParsed.sort((a, b) => a - b);
 
           setInputData(arrayParsed);
-
-          // setSpecialData({
-          //   ...initialSpecial,
-          //   target: Number(target),
-          // });
 
           if (isSearch) initialSpecial.target = Number(target);
 

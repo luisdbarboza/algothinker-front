@@ -955,9 +955,9 @@ const visualizations = {
       if (currentItem === stepData.target) {
         markers.push({
           startRow: 11,
-          startCol: 27,
+          startCol: 41,
           endRow: 13,
-          endCol: 4,
+          endCol: 8,
           className: 'codeEditor',
           type: 'background',
         });
@@ -973,9 +973,9 @@ const visualizations = {
       } else {
         markers.push({
           startRow: 8,
-          startCol: 26,
+          startCol: 42,
           endRow: 14,
-          endCol: 2,
+          endCol: 4,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1122,9 +1122,9 @@ const visualizations = {
       if (arr[halfIndex] > stepData.target) {
         markers.push({
           startRow: 9,
-          startCol: 28,
+          startCol: 44,
           endRow: 11,
-          endCol: 2,
+          endCol: 4,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1141,9 +1141,9 @@ const visualizations = {
       } else if (arr[halfIndex] < stepData.target) {
         markers.push({
           startRow: 11,
-          startCol: 28,
+          startCol: 44,
           endRow: 13,
-          endCol: 2,
+          endCol: 4,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1160,9 +1160,9 @@ const visualizations = {
       } else {
         markers.push({
           startRow: 7,
-          startCol: 26,
+          startCol: 39,
           endRow: 9,
-          endCol: 2,
+          endCol: 4,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1533,9 +1533,9 @@ const visualizations = {
         arr.push(externalInputs.value);
         markers.push({
           startRow: 9,
-          startCol: 10,
+          startCol: 14,
           endRow: 16,
-          endCol: 1,
+          endCol: 2,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1543,9 +1543,9 @@ const visualizations = {
         arr.pop();
         markers.push({
           startRow: 18,
-          startCol: 5,
+          startCol: 9,
           endRow: 21,
-          endCol: 1,
+          endCol: 2,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1724,9 +1724,9 @@ const visualizations = {
 
         markers.push({
           startRow: 18,
-          startCol: 12,
+          startCol: 17,
           endRow: 33,
-          endCol: 1,
+          endCol: 2,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1735,9 +1735,9 @@ const visualizations = {
 
         markers.push({
           startRow: 35,
-          startCol: 9,
+          startCol: 13,
           endRow: 49,
-          endCol: 1,
+          endCol: 2,
           className: 'codeEditor',
           type: 'background',
         });
@@ -1949,6 +1949,99 @@ const visualizations = {
       if (externalInputs.action === 'insert') {
         let value = Number(externalInputs.value);
         let index = Number(externalInputs.index);
+
+        markers.push({
+          startRow: 54,
+          startCol: 24,
+          endRow: 75,
+          endCol: 2,
+          className: 'codeEditor',
+          type: 'background',
+        });
+
+        if (index > linkedList.length - 1) {
+          markers.push({
+            startRow: 19,
+            startCol: 17,
+            endRow: 31,
+            endCol: 2,
+            className: 'codeEditor',
+            type: 'background',
+          });
+
+          markers.push({
+            startRow: 57,
+            startCol: 35,
+            endRow: 59,
+            endCol: 6,
+            className: 'codeEditor-nested-call',
+            type: 'background',
+          });
+          
+          if(linkedList.length === 0) {
+            markers.push({
+              startRow: 22,
+              startCol: 27,
+              endRow: 25,
+              endCol: 4,
+              className: 'codeEditor-nested-call',
+              type: 'background',
+            });
+          } else {
+            markers.push({
+              startRow: 25,
+              startCol: 36,
+              endRow: 28,
+              endCol: 4,
+              className: 'codeEditor-nested-call',
+              type: 'background',
+            });
+          }
+        } else if(index <= 0) {
+          markers.push({
+            startRow: 33,
+            startCol: 18,
+            endRow: 39,
+            endCol: 2,
+            className: 'codeEditor',
+            type: 'background',
+          });
+
+          markers.push({
+            startRow: 59,
+            startCol: 30,
+            endRow: 61,
+            endCol: 6,
+            className: 'codeEditor-nested-call',
+            type: 'background',
+          });
+        } else {
+          markers.push({
+            startRow: 61,
+            startCol: 14,
+            endRow: 71,
+            endCol: 6,
+            className: 'codeEditor-nested-call',
+            type: 'background',
+          });
+
+          markers.push({
+            startRow: 64,
+            startCol: 0,
+            className: 'codeEditor-nested-call-2',
+            type: 'background',
+          });
+
+          markers.push({
+            startRow: 94,
+            startCol: 26,
+            endRow: 104,
+            endCol: 2,
+            className: 'codeEditor',
+            type: 'background',
+          });
+        }
+
         linkedList.insert(index, value);
         stepData.insertIndex = Number(externalInputs.index);
         stepData.insertValue = Number(externalInputs.value);

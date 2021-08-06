@@ -9,6 +9,12 @@
   color: white;
 }
 
+.codeEditor-nested-call-2 {
+  background-color: #666FFF;
+  position: absolute;
+  color: white;
+}
+
 .annotation {
   color: gray;
 }

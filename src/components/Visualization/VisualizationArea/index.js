@@ -86,6 +86,7 @@ const VisualizationArea = React.memo(
           break;
         case 'linkedList':
           isLinkedList = true;
+          break;
         case 'array':
           isFullArray = true;
           break;
